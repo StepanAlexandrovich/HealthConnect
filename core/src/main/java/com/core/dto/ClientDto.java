@@ -15,4 +15,8 @@ public class ClientDto extends UserDto{
     private String lastName;
     private LocalDate birthDay;
     private String gender;
+
+    public ClientDto(String login, String password) {
+        super(login, password);
+    }
 }

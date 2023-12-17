@@ -15,10 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationController {
     private final ClientServiceImpl clientService;
 
+//    @PostMapping("/registration")
+//    public ResponseEntity<ClientDto> registration(@RequestBody ClientDto clientDto){
+//        clientService.registration(clientDto);
+//        return null;
+//    }
+
     @PostMapping("/registration")
-    public ResponseEntity<ClientDto> registration(@RequestBody ClientDto clientDto){
-        System.out.println();
+    public String registration(@RequestBody ClientDto clientDto){
         clientService.registration(clientDto);
-        return null;
+        return "success";
     }
 }

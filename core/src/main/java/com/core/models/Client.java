@@ -22,10 +22,9 @@ public class Client extends User{
     private String secondName;
     @Column(name = "lastName")
     private String lastName;
-    @Column(name = "birthDay")
-    private LocalDate birthDay;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    private Gender gender;
-
+//    @Column(name = "birthDay")
+//    private LocalDate birthDay;
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "gender")
+//    private Gender gender;
 }

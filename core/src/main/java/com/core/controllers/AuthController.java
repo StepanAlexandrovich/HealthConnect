@@ -1,9 +1,9 @@
 package com.core.controllers;
 
-import com.core.dto.ClientDto;
 import com.core.dto.JwtResponseDto;
 import com.core.dto.JwtCreateDto;
 import com.core.dto.UserDto;
+import com.core.models.User;
 import com.core.services.CustomUserDetailsService;
 import com.core.services.UserService;
 import com.core.utils.JwtTokenUtils;
@@ -14,18 +14,21 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
     private final UserService userService;
-
-
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtils jwtTokenUtils;
-
+    @GetMapping("/users")
+    public List<User> getUsers(){
+        System.out.println();
+        return userService.getAll();
+    }
     @PostMapping("/auth")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
 
@@ -38,14 +41,6 @@ public class AuthController {
         String token = jwtTokenUtils.generationToken(userDetails);
         return ResponseEntity.ok(new JwtResponseDto(token));
     }
-
-//    @PostMapping("/registration")
-//    public ResponseEntity<ClientDto> registration(@RequestBody UserDto userDto){
-//        System.out.println();
-//
-//
-//        return userService.createUser(userDto);
-//    }
 
     @PostMapping("/registration")
     public String registration(@RequestBody UserDto userDto){

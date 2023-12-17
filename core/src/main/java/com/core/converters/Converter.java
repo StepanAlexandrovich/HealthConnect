@@ -1,8 +1,9 @@
 package com.core.converters;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public abstract class Converter<T,E> {
     final ModelMapper modelMapper;
 

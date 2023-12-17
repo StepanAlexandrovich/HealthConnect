@@ -11,9 +11,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    private Long id;
     private String login;
     private String password;
-    private Boolean active;
-    private Set<String> roles = new HashSet<>();
 }
