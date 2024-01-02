@@ -25,9 +25,9 @@ public class AuthController {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtils jwtTokenUtils;
     @GetMapping("/users")
-    public List<User> getUsers(){
-        System.out.println();
-        return userService.getAll();
+    public List<UserDto> getUsers(){
+        // TODO: 19.12.2023 userDto
+        return userService.getAllDto();
     }
     @PostMapping("/auth")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
