@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -6,11 +6,15 @@ import Modal from 'react-bootstrap/Modal';
 import Axios from 'axios'
 
 const LogInForm = (props) => {
-
+  
   //----------------
   const url = 'http://localhost:8082/auth'
   const [login,setLogin] = useState("")
   const [password,setPassword] = useState("")
+
+  // useEffect( ()=>{
+  //   console.log("init")
+  // },[login]);
 
   const changeLogin = (e) => {
     setLogin(e.target.value) 
@@ -20,6 +24,9 @@ const LogInForm = (props) => {
   }
   const handleLogin = (e) => {
     e.preventDefault();
+
+    console.log(login)
+    console.log(password)
 
     Axios.post(url,{
       username: login,

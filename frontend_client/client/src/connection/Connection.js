@@ -29,4 +29,28 @@ export class Connection{
         });
 
     }
+
+    getDepartments = function(token){
+        const urlGetDepartments = 'http://localhost:8082/clinic/departments'
+        
+        var data = '';
+
+        var config = {
+            method: 'get',
+            url: urlGetDepartments,
+            headers: { 
+                'Authorization': 'Bearer '+ token
+            },
+            data : data
+        };
+
+        Axios(config)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    }
 }

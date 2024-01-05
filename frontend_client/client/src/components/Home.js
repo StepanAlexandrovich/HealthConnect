@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Slider from './Slider';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LeftMenu from './LeftMenu';
-
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import MyCard from './MyCard';
+import DepartmentsService from '../connection/DepartmentService';
+import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
+    const [departments,setDepartments] = useState([])
+
+    useEffect( ()=>{
+        console.log('Home -> useEffect')
+        DepartmentsService.getDepartments()
+            .then((result) => {
+                setDepartments(result.data)
+            }).catch((err) => {
+                console.error("нет доступа");
+            });
+        },[]
+    );
+
     return (
         <>
             <Row>
@@ -16,74 +29,15 @@ const Home = () => {
             </Row>
 
             <Row>
-                <Col sm={3}>
+                { 
+                    departments.map(
+                        (department,index) =>
+                            <Col key={index} sm={12/departments.length}>
+                                <MyCard title = {department.title}></MyCard>
+                            </Col>
+                    )
+                }
 
-                <Card style={{ width: '18rem' }}>
-         <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-            
-            </Col>
-
-            <Col sm={3}>
-
-    <Card style={{ width: '18rem' }}>
-         <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-
-    </Col>
-
-    <Col sm={3}>
-
-
-    <Card style={{ width: '18rem' }}>
-         <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-
-    
-
-                </Col>
-
-                <Col sm={3}>
-
-    <Card style={{ width: '18rem' }}>
-         <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-
-                </Col>
-
-                
             </Row>
         </>
         

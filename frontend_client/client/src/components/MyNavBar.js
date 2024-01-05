@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -13,7 +13,8 @@ import { jwtDecode } from "jwt-decode";
 
 function MyNavBar(props) { 
   const [isVisibilityFrame,setIsVisibilityFrame] = useState(false)
-  const[token,setToken] = useState(useContext(AuthContext))
+  // const[token,setToken] = useState(useContext(AuthContext))
+  const[token,setToken] = useState(localStorage.getItem("token"))
   const[username,setUsername] = useState("")
 
   const handleSetIsVisibilityFrame = (isBoolean) => setIsVisibilityFrame(isBoolean);
@@ -21,15 +22,18 @@ function MyNavBar(props) {
     localStorage.setItem("token",newToken)
     setToken(newToken)
     
-    // console.log(localStorage.getItem("token"))
+    console.log(localStorage.getItem("token"))
     // console.log(new Connection().getUsers(localStorage.getItem("token")))
 
-    const decoded = jwtDecode(token);
-    console.log("sub " + decoded.sub);
-    console.log(decoded.roles[0])
 
-    setUsername(decoded.sub);
-  } 
+    //const decoded = jwtDecode(token);
+    // console.log("sub " + decoded.sub);
+    // console.log(decoded.roles[0])
+
+    //setUsername(decoded.sub);
+  }
+  
+  // useEffect( ()=>{ console.log('MyNavBar -> useEffect') },[token] )
 
   return (
       <>

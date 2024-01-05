@@ -7,7 +7,7 @@ import Home from './components/Home';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import About from './components/About';
 import Contacts from './components/Contacts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthContext } from './context/AuthContext';
 import MyFooter from './components/MyFooter';
 

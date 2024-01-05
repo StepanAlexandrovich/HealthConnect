@@ -26,7 +26,6 @@ public class AuthController {
     private final JwtTokenUtils jwtTokenUtils;
     @GetMapping("/users")
     public List<UserDto> getUsers(){
-        // TODO: 19.12.2023 userDto
         return userService.getAllDto();
     }
     @PostMapping("/auth")
