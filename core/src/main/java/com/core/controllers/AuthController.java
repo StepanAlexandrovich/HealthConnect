@@ -25,9 +25,8 @@ public class AuthController {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtils jwtTokenUtils;
     @GetMapping("/users")
-    public List<User> getUsers(){
-        System.out.println();
-        return userService.getAll();
+    public List<UserDto> getUsers(){
+        return userService.getAllDto();
     }
     @PostMapping("/auth")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
