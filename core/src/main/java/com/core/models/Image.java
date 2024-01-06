@@ -30,7 +30,7 @@ public class Image {
     private Long size;
     @Lob
 //    @Type("org.hibernate.type.BinaryType")
-    @JdbcType(VarbinaryJdbcType.class)
+//    @JdbcType(VarbinaryJdbcType.class)
     private byte[] bytes;
     @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     private Department department;

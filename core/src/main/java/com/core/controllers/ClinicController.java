@@ -22,15 +22,16 @@ public class ClinicController {
 
     @GetMapping("/test")
     public String test(){
-        departmentService.createDepartment(new Department(null,"Dentist",null));
-        departmentService.createDepartment(new Department(null,"Therapist",null));
-        departmentService.createDepartment(new Department(null,"Surgeon",null));
-        departmentService.createDepartment(new Department(null,"Ophthalmologist",null));
+        departmentService.createDepartment(new Department(null,"Dentist",null,null));
+//        departmentService.createDepartment(new Department(null,"Therapist",null));
+//        departmentService.createDepartment(new Department(null,"Surgeon",null));
+//        departmentService.createDepartment(new Department(null,"Ophthalmologist",null));
         return "test";
     }
 
     @GetMapping("/test2")
     public String test2(){
+
         Image image = new Image() {
             @Override
             public int getWidth(ImageObserver imageObserver) {
@@ -57,6 +58,7 @@ public class ClinicController {
                 return null;
             }
         };
+
 
         return "test2";
     }

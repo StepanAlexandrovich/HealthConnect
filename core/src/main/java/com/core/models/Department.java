@@ -24,4 +24,6 @@ public class Department {
     private String title;
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
+    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<TypeAppointment> typeAppointments = new ArrayList<>();
 }
