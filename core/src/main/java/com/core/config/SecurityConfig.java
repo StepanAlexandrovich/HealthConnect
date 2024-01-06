@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
-                            .requestMatchers("/auth","/api/v1/client/registration","/registration")
+                            .requestMatchers("/auth","/api/v1/client/registration","/registration","/clinic/test")
                             .permitAll()
 //                            .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                             .anyRequest().authenticated();
