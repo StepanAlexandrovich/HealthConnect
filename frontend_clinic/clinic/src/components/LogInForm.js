@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 const LogInForm = (props) => {
   
   //----------------
-  const url = 'http://localhost:8082/auth'
+  const url = 'http://localhost:8082/auth_admin'
   const [login,setLogin] = useState("")
   const [password,setPassword] = useState("")
 
@@ -39,10 +39,9 @@ const LogInForm = (props) => {
       localStorage.setItem("token",res.data.token)
       
 
-      const username = jwtDecode(res.data.token).sub;
+      // const username = jwtDecode(res.data.token).sub;
 
-      localStorage.setItem("username",username)
-      // props.setUsername(username)
+      // localStorage.setItem("username",username)
     })
     .catch( err => {
       console.error('Ошибка логирования')

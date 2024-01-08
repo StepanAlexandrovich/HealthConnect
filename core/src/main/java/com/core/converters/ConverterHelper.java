@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConverterHelper {
     private final PasswordEncoder encoder;
-
     public User correct(User user,UserRole userRole,boolean active){
         user.setPassword(encoder.encode(user.getPassword()));
         user.getRoles().add(userRole);

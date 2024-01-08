@@ -40,12 +40,9 @@ public class AuthController {
         String token = jwtTokenUtils.generationToken(userDetails);
         return ResponseEntity.ok(new JwtResponseDto(token));
     }
-
     @PostMapping("/registration")
-    public String registration(@RequestBody UserDto userDto){
-        userService.createUser(userDto);
-        System.out.println();
-        return "yes";
+    public UserDto registration(@RequestBody UserDto userDto){
+        return userService.createUser(userDto);
     }
 
 }

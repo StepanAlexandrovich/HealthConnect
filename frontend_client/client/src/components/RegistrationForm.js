@@ -1,16 +1,54 @@
 import React from 'react';
-import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios'
 
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
+
+  const url = 'http://localhost:8082/registration'
+  const [login,setLogin] = useState("")
+  const [password,setPassword] = useState("")
+
+  const changeLogin = (e) => {
+    setLogin(e.target.value) 
+  }
+  const changePassword = (e) => {
+    setPassword(e.target.value) 
+  }
+
+  const handleRegistration = (e) => {
+      e.preventDefault();
+
+      var data = JSON.stringify({
+        "login": login,
+        "password": password
+      });
+
+      var config = {
+        method: 'post',
+        url: url,
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        props.setIsVisibilityFrameRegistration(false)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
 
     return (
       <>
       
-        <Modal show={props.isVisibilityFrame} onHide={handleClose}>
+        <Modal show={props.isVisibilityFrameRegistration} onHide={()=>props.handleSetIsVisibilityFrameRegistration(false)}>  // упростить
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
@@ -38,11 +76,11 @@ const RegistrationForm = () => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={()=>props.setIsVisibilityFrameRegistration(false)}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleLogin}>
-              Log In
+            <Button variant="primary" onClick={handleRegistration}>
+              Registration
             </Button>
           </Modal.Footer>
         </Modal>

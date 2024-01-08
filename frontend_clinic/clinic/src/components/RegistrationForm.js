@@ -42,7 +42,7 @@ const RegistrationForm = () => {
               Close
             </Button>
             <Button variant="primary" onClick={handleLogin}>
-              Log In
+              Registration
             </Button>
           </Modal.Footer>
         </Modal>

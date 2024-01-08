@@ -10,6 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 import { Connection } from '../connection/Connection';
 
 import { jwtDecode } from "jwt-decode";
+import CreateDepartmentForm from './CreateDepartmentForm';
 
 function MyNavBar(props) { 
   const [isVisibilityFrame,setIsVisibilityFrame] = useState(false)
@@ -33,15 +34,13 @@ function MyNavBar(props) {
     // setUsername(decoded.sub);
   }
 
-  const decode = (token)=>{
-    const decoded = jwtDecode(token);
-    console.log("sub " + decoded.sub);
-    console.log(decoded.roles[0])
-
-    setUsername(decoded.sub);
-  }
+  
   
   // useEffect( ()=>{ console.log('MyNavBar -> useEffect') },[token] )
+
+  //-----------------------------
+
+  const [isVisibilityCreateDepartmentFrame,setIsVisibilityCreateDepartmentFrame] = useState(false)
 
   return (
       <>
@@ -61,6 +60,7 @@ function MyNavBar(props) {
               token!=""
               ? <>
                   <Button onClick={() => setToken("")} variant = 'outline-primary' className='me-2'>Log Out</Button>
+                  <Button onClick={() => setIsVisibilityCreateDepartmentFrame(true)} variant = 'primary' className='me-2'>Create department</Button>
                   <Button variant = 'outline-info' className='me-2'>{username}</Button>
                 </>
               : <>
@@ -80,6 +80,11 @@ function MyNavBar(props) {
           handleSetToken = {handleSetToken}
           //setUsername = {setUsername}
         ></LogInForm>
+
+        <CreateDepartmentForm
+          isVisibilityCreateDepartmentFrame = {isVisibilityCreateDepartmentFrame}
+          setIsVisibilityCreateDepartmentFrame = {setIsVisibilityCreateDepartmentFrame}
+        ></CreateDepartmentForm>
         
       </>
   );

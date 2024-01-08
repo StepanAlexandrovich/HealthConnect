@@ -10,9 +10,11 @@ import { AuthContext } from '../context/AuthContext';
 import { Connection } from '../connection/Connection';
 
 import { jwtDecode } from "jwt-decode";
+import RegistrationForm from './RegistrationForm';
 
 function MyNavBar(props) { 
-  const [isVisibilityFrame,setIsVisibilityFrame] = useState(false)
+  const [isVisibilityFrame,setIsVisibilityFrame] = useState(false) // переделать
+  
   // const[token,setToken] = useState(useContext(AuthContext))
   const[token,setToken] = useState(localStorage.getItem("token"))
   const[username,setUsername] = useState(localStorage.getItem("username"))
@@ -31,17 +33,16 @@ function MyNavBar(props) {
     // console.log(decoded.roles[0])
 
     // setUsername(decoded.sub);
+
   }
 
-  const decode = (token)=>{
-    const decoded = jwtDecode(token);
-    console.log("sub " + decoded.sub);
-    console.log(decoded.roles[0])
-
-    setUsername(decoded.sub);
-  }
+  
   
   // useEffect( ()=>{ console.log('MyNavBar -> useEffect') },[token] )
+
+  // registration
+  const [isVisibilityFrameRegistration,setIsVisibilityFrameRegistration] = useState(false)
+  const handleSetIsVisibilityFrameRegistration = (isBoolean) => { setIsVisibilityFrameRegistration(isBoolean); }
 
   return (
       <>
@@ -65,7 +66,7 @@ function MyNavBar(props) {
                 </>
               : <>
                 <Button onClick={() => handleSetIsVisibilityFrame(true)} variant = 'primary' className='me-2'>Log In</Button>
-                <Button variant = 'primary' className='me-2'>Registration</Button>
+                <Button onClick={() => handleSetIsVisibilityFrameRegistration(true)} variant = 'primary' className='me-2'>Registration</Button>
               </>
             }
             
@@ -80,6 +81,11 @@ function MyNavBar(props) {
           handleSetToken = {handleSetToken}
           //setUsername = {setUsername}
         ></LogInForm>
+
+        <RegistrationForm
+          isVisibilityFrameRegistration = {isVisibilityFrameRegistration}
+          setIsVisibilityFrameRegistration = {setIsVisibilityFrameRegistration} // more simple
+        ></RegistrationForm>
         
       </>
   );
