@@ -17,6 +17,8 @@ public class TypeAppointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+    @Column(name = "title")
+    private String title;
     @Column(name = "description")
     private String description;
     @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)

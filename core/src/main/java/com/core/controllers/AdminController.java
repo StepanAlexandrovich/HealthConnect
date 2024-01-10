@@ -7,6 +7,7 @@ import com.core.dto.JwtResponseDto;
 import com.core.dto.UserDto;
 import com.core.models.Department;
 import com.core.models.TypeAppointment;
+import com.core.models.User;
 import com.core.repositories.TypeAppointmentRepository;
 import com.core.services.CustomUserDetailsService;
 import com.core.services.TypeAppointmentService;
@@ -23,20 +24,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3006/")
 @RestController
 @RequiredArgsConstructor
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/api/v1/admin")
 public class AdminController {
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtils jwtTokenUtils;
-
-
     //---------------------
     private final DepartmentServiceImpl departmentService;
-    private final TypeAppointmentRepository typeAppointmentRepository;
     private final TypeAppointmentService typeAppointmentService;
 
     @PostMapping("/auth_admin")
@@ -52,7 +53,7 @@ public class AdminController {
     }
 
     @PostMapping("/create_department")
-    public Department createDepartment(@RequestBody DepartmentDto departmentDto){
+    public Department createDepartment(@RequestBody DepartmentDto departmentDto,Principal principal){
         Department department = new Department();
         department.setTitle(departmentDto.getTitle());
 
@@ -63,6 +64,20 @@ public class AdminController {
         typeAppointmentService.createTypeAppointment(typeAppointment);
         return typeAppointment.getDepartment();
     }
+    @GetMapping("/departments")
+    public List<DepartmentDto> departments(){
+        System.out.println(departmentService.getAll());
+        System.out.println();
+
+        return departmentService.getAll();
+    }
+
+//    @GetMapping("/departments")
+//    public List<DepartmentDto> departments(){
+//        return departmentService.getAll().stream().map(this::convertDepartmentToDepartmentDto).toList();
+//    }
+
+
 
     @GetMapping("/is_admin")
     public String isAdmin(Principal principal){
@@ -70,5 +85,10 @@ public class AdminController {
         System.out.println(role);
         //System.out.println(jwtTokenUtils.getUserRole("---------------------"+token));//-----------------------------test
         return "You Admin";
+    }
+
+    @GetMapping("/department_details/{departmentId}")
+    public ResponseEntity<DepartmentDto> departments(@PathVariable Long departmentId){
+        return ResponseEntity.ok(departmentService.getById(departmentId));
     }
 }

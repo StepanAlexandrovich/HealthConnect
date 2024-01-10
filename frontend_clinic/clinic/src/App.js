@@ -10,6 +10,8 @@ import Contacts from './components/Contacts';
 import { useEffect, useState } from 'react';
 import { AuthContext } from './context/AuthContext';
 import MyFooter from './components/MyFooter';
+import DownloadImageForm from './components/DownloadImageForm';
+import DepartmentDetails from './components/DepartmentDetails';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
               <Route path='/home' element={<Home/>}/>
               <Route path='/about' element={<About/>}/>
               <Route path='/contacts' element={<Contacts/>}/>
+              <Route path='/download' element={<DownloadImageForm/>}/>
+              <Route path='/department/:id' element={<DepartmentDetails/>}/>
             </Routes>
           <MyFooter/>
           </BrowserRouter>

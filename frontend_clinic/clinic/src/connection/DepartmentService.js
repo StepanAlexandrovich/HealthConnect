@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL_GET_ALL_DEPARTMENTS = "http://localhost:8082/clinic/departments"
+const URL_GET_ALL_DEPARTMENTS = "http://localhost:8082/api/v1/admin/departments"
 
 class DepartmentService {
 

@@ -5,13 +5,13 @@ import Col from 'react-bootstrap/Col';
 import LeftMenu from './LeftMenu';
 import MyCard from './MyCard';
 import DepartmentsService from '../connection/DepartmentService';
+
 import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
     const [departments,setDepartments] = useState([])
 
     useEffect( ()=>{
-        console.log('Home -> useEffect')
         DepartmentsService.getDepartments()
             .then((result) => {
                 setDepartments(result.data)
@@ -33,7 +33,7 @@ const Home = () => {
                     departments.map(
                         (department,index) =>
                             <Col key={index} sm={12/departments.length}>
-                                <MyCard title = {department.title}></MyCard>
+                                <MyCard department = {department}></MyCard>
                             </Col>
                     )
                 }

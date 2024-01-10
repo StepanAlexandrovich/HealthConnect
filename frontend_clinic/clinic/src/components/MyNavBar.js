@@ -54,6 +54,7 @@ function MyNavBar(props) {
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/about">About as</Nav.Link>
             <Nav.Link href="/contacts">Contacts</Nav.Link>
+            <Nav.Link href="/download">Doanload images</Nav.Link>
           </Nav>
           <Nav>
             {

@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 const LogInForm = (props) => {
   
   //----------------
-  const url = 'http://localhost:8082/auth_admin'
+  const url = 'http://localhost:8082/auth'
   const [login,setLogin] = useState("")
   const [password,setPassword] = useState("")
 

@@ -1,16 +1,10 @@
 package com.core.controllers;
 
-import com.core.models.Department;
+import com.core.dto.DepartmentDto;
 import com.core.services.impl.DepartmentServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000/")
@@ -20,7 +14,7 @@ import java.util.List;
 public class ClinicController {
     private final DepartmentServiceImpl departmentService;
     @GetMapping("/departments")
-    public List<Department> departments(){
+    public List<DepartmentDto> departments(){
         return departmentService.getAll();
     }
 }

@@ -25,10 +25,10 @@ public class TestController {
 
     @GetMapping("/init1")
     public String test1(){
-        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Dentist_description",departmentService.createDepartment(new Department(null,"Dentist",null,null))));
-        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Therapist_description",departmentService.createDepartment(new Department(null,"Therapist",null,null))));
-        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Surgeon_description",departmentService.createDepartment(new Department(null,"Surgeon",null,null))));
-        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Ophthalmologist_description",departmentService.createDepartment(new Department(null,"Ophthalmologist",null,null))));
+//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Dentist_description",departmentService.createDepartment(new Department(null,"Dentist",null,null))));
+//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Therapist_description",departmentService.createDepartment(new Department(null,"Therapist",null,null))));
+//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Surgeon_description",departmentService.createDepartment(new Department(null,"Surgeon",null,null))));
+//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Ophthalmologist_description",departmentService.createDepartment(new Department(null,"Ophthalmologist",null,null))));
 
         return "departments created";
     }
@@ -46,9 +46,9 @@ public class TestController {
 
     @GetMapping("/init3")
     public String test3(){
-        for (Department department : departmentService.getAll()) {
-            System.out.println(" title -> " + department.getTitle()+"; description -> "+department.getTypeAppointments().get(0).getDescription());
-        }
+//        for (Department department : departmentService.getAll()) {
+//            System.out.println(" title -> " + department.getTitle()+"; description -> "+department.getTypeAppointments().get(0).getDescription());
+//        }
 
         return "init3";
     }

@@ -1,56 +1,24 @@
-import React from "react";
-import Axios from 'axios'
+import axios from 'axios'
 
-export class Connection{
-    isConnection = function () {
-        return "Stroka"
-    }
-
-    getUsers = function(token){
-        const urlGetUsers = 'http://localhost:8082/users'
-        
-        var data = '';
+class Connection{
+   
+    request(url,jsonObject,requestType){
+        var data = JSON.stringify(jsonObject,requestType);
+        var token = localStorage.getItem("token");
 
         var config = {
-            method: 'get',
-            url: urlGetUsers,
+            method: requestType,
+            url: url,
             headers: { 
-                'Authorization': 'Bearer '+ token
+                'Authorization': 'Bearer '+ token, 
+                'Content-Type': 'application/json'
             },
             data : data
         };
 
-        Axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
+        return axios(config)
     }
 
-    getDepartments = function(token){
-        const urlGetDepartments = 'http://localhost:8082/clinic/departments'
-        
-        var data = '';
-
-        var config = {
-            method: 'get',
-            url: urlGetDepartments,
-            headers: { 
-                'Authorization': 'Bearer '+ token
-            },
-            data : data
-        };
-
-        Axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    }
 }
+
+export default new Connection();

@@ -50,6 +50,8 @@ public class SecurityConfig {
                     authorizationManagerRequestMatcherRegistry
                             .requestMatchers("/auth","/auth_admin","/api/v1/client/registration","/registration","/test/init3")
                             .permitAll()
+                            .requestMatchers("/api/v1/admin/**")
+                            .hasAuthority("ROLE_ADMIN")
 //                            .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                             .anyRequest().authenticated();
                 })

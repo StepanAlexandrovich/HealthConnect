@@ -1,63 +1,47 @@
 import React from 'react';
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios'
+import Connection from "../connection/Connection"
 
 const CreateDepartmentForm = (props) => {
-    const url = 'http://localhost:8082/create_department'
-    const [title,setTitle] = useState("")
-    const [description,setDescription] = useState("")
-
-    const token = localStorage.getItem("token")
-
     const handleClose = (e) => {
-        
+      props.setIsVisibilityCreateDepartmentFrame(false)
     }
 
-    const changeTitle = (e) => {  // uuut
-        setTitle(e.target.value) 
+    //------------------------------------------
+    const url = 'http://localhost:8082/api/v1/admin/create_department'
+
+    const data = {
+      "title":"",
+      "description":""
     }
-    const changeDescription = (e) => {
-        setDescription(e.target.value)
-    }
+
+    const typeRequest = "post"
+
+    const changeTitle = (e) => { data.title = e.target.value }
+    const changeDescription = (e) => { data.description = e.target.value }
+
     const handleCreateDepartment = (e) => {
         e.preventDefault();
 
-        console.log(title)
-        console.log(description)
-    
-        var data = JSON.stringify({
-            "title": title,
-            "description": description
-        });
-
-        var config = {
-            method: 'post',
-            url: url,
-            headers: { 
-                'Authorization': 'Bearer '+ token, 
-                'Content-Type': 'application/json'
-            },
-            data : data
-        };
-
-        axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            props.setIsVisibilityCreateDepartmentFrame(false);
+        Connection.request(
+          url,
+          data,
+          typeRequest
+        ).then(function (response) {
+          console.log(JSON.stringify(response.data));
+          props.setIsVisibilityCreateDepartmentFrame(false);
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
-    
     }
 
     return (
       <>
       
-        <Modal show={props.isVisibilityCreateDepartmentFrame} onHide={handleClose}>
+        <Modal show={props.isVisibilityCreateDepartmentFrame} onHide={() => props.setIsVisibilityCreateDepartmentFrame(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
