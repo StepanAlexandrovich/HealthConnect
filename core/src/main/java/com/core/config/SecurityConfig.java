@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
-    private final CustomUrlHandler customUrlHandler;
+    //private final CustomUrlHandler customUrlHandler;
     private final MyJwtFilter myJwtFilter;
 
     @Bean
@@ -48,8 +48,10 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
-                            .requestMatchers("/auth","/api/v1/client/registration","/registration")
+                            .requestMatchers("/auth","/auth_admin","/api/v1/client/registration","/registration","/test/init3")
                             .permitAll()
+                            .requestMatchers("/api/v1/admin/**")
+                            .hasAuthority("ROLE_ADMIN")
 //                            .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                             .anyRequest().authenticated();
                 })
