@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TypeAppointmentDto {
     private Long id;
+    private String title;
     private String description;
 }

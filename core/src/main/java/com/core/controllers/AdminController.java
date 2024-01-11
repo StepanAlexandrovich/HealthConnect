@@ -8,6 +8,7 @@ import com.core.dto.UserDto;
 import com.core.models.Department;
 import com.core.models.TypeAppointment;
 import com.core.models.User;
+import com.core.repositories.DepartmentRepository;
 import com.core.repositories.TypeAppointmentRepository;
 import com.core.services.CustomUserDetailsService;
 import com.core.services.TypeAppointmentService;
@@ -64,18 +65,14 @@ public class AdminController {
         typeAppointmentService.createTypeAppointment(typeAppointment);
         return typeAppointment.getDepartment();
     }
-    @GetMapping("/departments")
-    public List<DepartmentDto> departments(){
-        System.out.println(departmentService.getAll());
-        System.out.println();
-
-        return departmentService.getAll();
-    }
-
 //    @GetMapping("/departments")
 //    public List<DepartmentDto> departments(){
-//        return departmentService.getAll().stream().map(this::convertDepartmentToDepartmentDto).toList();
+//        System.out.println(departmentService.getAll());
+//        System.out.println();
+//
+//        return departmentService.getAll();
 //    }
+
 
 
 
@@ -87,8 +84,5 @@ public class AdminController {
         return "You Admin";
     }
 
-    @GetMapping("/department_details/{departmentId}")
-    public ResponseEntity<DepartmentDto> departments(@PathVariable Long departmentId){
-        return ResponseEntity.ok(departmentService.getById(departmentId));
-    }
+
 }

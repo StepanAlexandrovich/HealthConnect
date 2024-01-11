@@ -4,15 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LeftMenu from './LeftMenu';
 import MyCard from './MyCard';
-import DepartmentsService from '../connection/DepartmentService';
-
-import { AuthContext } from '../context/AuthContext';
+import Connection from "../connection/Connection"
 
 const Home = () => {
+    const url = "http://localhost:8082/clinic/departments"
+    let typeRequest = "get"
     const [departments,setDepartments] = useState([])
 
     useEffect( ()=>{
-        DepartmentsService.getDepartments()
+        Connection.requestSymple(url,typeRequest)
             .then((result) => {
                 setDepartments(result.data)
             }).catch((err) => {

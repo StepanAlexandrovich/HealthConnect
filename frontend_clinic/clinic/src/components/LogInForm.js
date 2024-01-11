@@ -33,13 +33,19 @@ const LogInForm = (props) => {
       username: login,
       password: password
     })
-    .then(res=>{
-      props.handleSetIsVisibilityFrame(false)
-      props.handleSetToken(res.data.token)
-      localStorage.setItem("token",res.data.token)
-      
+    .then(res=>{ 
+      const roles = jwtDecode(res.data.token).roles;
+      if(roles.includes("ROLE_ADMIN")){
+        props.handleSetToken(res.data.token)
+        //localStorage.setItem("token",res.data.token)
+        props.handleSetIsVisibilityFrame(false)
 
-      // const username = jwtDecode(res.data.token).sub;
+        console.log("you have entered how admin")
+      }else{
+        localStorage.setItem("token","")
+        console.log("вы пытаетесь войти как обычный пользователь, это вход для администратора")
+      }
+      //alligator.includes("thick scales")
 
       // localStorage.setItem("username",username)
     })

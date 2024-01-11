@@ -23,12 +23,28 @@ public class TestController {
     private final AdminController adminController;
     private final TypeAppointmentService typeAppointmentService;
 
+
+    private void createDepartment(String title){
+        Department department = new Department();
+        department.setTitle(title);
+        department.setDescription(title + "_description");
+
+        for (int i = 1; i < 3; i++) {
+            TypeAppointment typeAppointment = new TypeAppointment();
+            String title_appointment = title+"_appointment_"+i;
+            typeAppointment.setTitle(title_appointment);
+            typeAppointment.setDescription(title_appointment + "_description");
+            typeAppointment.setDepartment(departmentService.createDepartment(department));
+
+            typeAppointmentService.createTypeAppointment(typeAppointment);
+        }
+    }
     @GetMapping("/init1")
     public String test1(){
-//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Dentist_description",departmentService.createDepartment(new Department(null,"Dentist",null,null))));
-//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Therapist_description",departmentService.createDepartment(new Department(null,"Therapist",null,null))));
-//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Surgeon_description",departmentService.createDepartment(new Department(null,"Surgeon",null,null))));
-//        typeAppointmentService.createTypeAppointment(new TypeAppointment(null,"Ophthalmologist_description",departmentService.createDepartment(new Department(null,"Ophthalmologist",null,null))));
+        createDepartment("Dentist");
+        createDepartment("Therapist");
+        createDepartment("Surgeon");
+        createDepartment("Ophthalmologist");
 
         return "departments created";
     }

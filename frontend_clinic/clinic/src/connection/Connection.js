@@ -19,6 +19,16 @@ class Connection{
         return axios(config)
     }
 
+    requestSymple(url,requestType){
+        var config = {
+            method: requestType,
+            url: url,
+            headers: { }
+          };
+
+        return axios(config)
+    }
+
 }
 
 export default new Connection();

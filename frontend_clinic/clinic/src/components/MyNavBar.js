@@ -60,13 +60,12 @@ function MyNavBar(props) {
             {
               token!=""
               ? <>
-                  <Button onClick={() => setToken("")} variant = 'outline-primary' className='me-2'>Log Out</Button>
+                  <Button onClick={() => handleSetToken("")} variant = 'outline-primary' className='me-2'>Log Out</Button>
                   <Button onClick={() => setIsVisibilityCreateDepartmentFrame(true)} variant = 'primary' className='me-2'>Create department</Button>
                   <Button variant = 'outline-info' className='me-2'>{username}</Button>
                 </>
               : <>
                 <Button onClick={() => handleSetIsVisibilityFrame(true)} variant = 'primary' className='me-2'>Log In</Button>
-                <Button variant = 'primary' className='me-2'>Registration</Button>
               </>
             }
             
