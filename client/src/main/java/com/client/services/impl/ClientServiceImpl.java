@@ -16,9 +16,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto registration(ClientDto clientDto) {
-        Client client = converter.convert(clientDto);
-        client.setActive(true);
-        clientRepository.save(client);
+        clientRepository.save(converter.convert(clientDto));
         return clientDto;
     }
 }
