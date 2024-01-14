@@ -21,10 +21,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> getAllDto() {
+        return getAll().stream().map(this::convertUserToUserDto).toList();
+    }
+
+    @Override
     public UserDto createUser(UserDto userDto) {
-        User user = converter.convert(userDto);
-        user.setActive(true);
-        userRepository.save(user);
+        userRepository.save(converter.convert(userDto));
         return userDto;
+    }
+    public UserDto convertUserToUserDto(User user){
+        return new UserDto(user.getLogin(), "password");
     }
 }

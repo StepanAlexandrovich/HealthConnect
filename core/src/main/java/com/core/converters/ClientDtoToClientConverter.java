@@ -15,4 +15,6 @@ public class ClientDtoToClientConverter extends Converter<ClientDto, Client>{
         Client client = super.modelMapper.map(clientDto,Client.class);
         return (Client) helper.correct(client, UserRole.ROLE_CLIENT,true);
     }
+
+
 }

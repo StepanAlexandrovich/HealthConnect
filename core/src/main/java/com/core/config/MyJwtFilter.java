@@ -28,8 +28,6 @@ public class MyJwtFilter extends OncePerRequestFilter {
         if(authorization!=null && authorization.startsWith("Bearer")){
             token = authorization.substring(7);
 
-
-
             try {
                 username = jwtTokenUtils.getUserName(token);
             }catch (Exception e){
