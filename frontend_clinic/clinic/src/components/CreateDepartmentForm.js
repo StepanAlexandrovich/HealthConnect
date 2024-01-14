@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Connection from "../connection/Connection"
+import axios from 'axios'
 
 const CreateDepartmentForm = (props) => {
     const handleClose = (e) => {
@@ -11,31 +12,59 @@ const CreateDepartmentForm = (props) => {
 
     //------------------------------------------
     const url = 'http://localhost:8082/api/v1/admin/create_department'
+    // const url = 'http://localhost:8082/api/v1/admin/image'
 
     const data = {
       "title":"",
-      "description":""
+      "description":"",
+      // "file":""
     }
+
+    const [file,setFile] = useState();
+    const [title,setTitle] = useState();
+    const [description,setDescription] = useState();
 
     const typeRequest = "post"
 
-    const changeTitle = (e) => { data.title = e.target.value }
-    const changeDescription = (e) => { data.description = e.target.value }
+    const changeTitle = (e) => { setTitle(e.target.value) }
+    const changeDescription = (e) => { setDescription(e.target.value)}
+    const changeFile = (e) => { 
+      // data.file = e.target.files[0] 
+      setFile(e.target.files[0])
+      console.log(e.target.files[0])
+    }
+
+    
 
     const handleCreateDepartment = (e) => {
         e.preventDefault();
 
-        Connection.request(
-          url,
-          data,
-          typeRequest
-        ).then(function (response) {
-          console.log(JSON.stringify(response.data));
-          props.setIsVisibilityCreateDepartmentFrame(false);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        var token = localStorage.getItem("token");
+
+        console.log(file)
+
+        axios.post(url,{
+          title:title,
+          description:description,
+          file:file
+        },
+        {headers:{
+          'Authorization': 'Bearer '+ token, 
+          'content-type': 'multipart/form-data'
+        }}
+        ).then( response => console.log(response.data) )
+
+        // Connection.requestImage(
+        //   url,
+        //   data,
+        //   typeRequest
+        // ).then(function (response) {
+        //   console.log(JSON.stringify(response.data));
+        //   props.setIsVisibilityCreateDepartmentFrame(false);
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
     }
 
     return (
@@ -65,6 +94,14 @@ const CreateDepartmentForm = (props) => {
                   autoFocus
                 />
               </Form.Group>
+
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>download file</Form.Label>
+                <Form.Control onChange={changeFile}
+                  type="file"
+                  autoFocus
+                />
+              </Form.Group>
   
             </Form>
           </Modal.Body>
@@ -79,6 +116,6 @@ const CreateDepartmentForm = (props) => {
         </Modal>
       </>  
     );
-};
 
+}
 export default CreateDepartmentForm;

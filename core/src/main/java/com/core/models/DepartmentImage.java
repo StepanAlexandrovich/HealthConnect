@@ -5,10 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.annotations.Type;
-import org.hibernate.type.descriptor.jdbc.BinaryJdbcType;
-import org.hibernate.type.descriptor.jdbc.VarbinaryJdbcType;
 
 @Entity
 @Table(name = "images")
@@ -16,7 +12,7 @@ import org.hibernate.type.descriptor.jdbc.VarbinaryJdbcType;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Image {
+public class DepartmentImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,12 +24,17 @@ public class Image {
     private String originalFileName;
     @Column(name = "size")
     private Long size;
-    @Lob
-//    @Type("org.hibernate.type.BinaryType")
-//    @JdbcType(VarbinaryJdbcType.class)
-    private byte[] bytes;
-    @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+//    @Lob
+////////    @Type("org.hibernate.type.BinaryType")
+////////    @JdbcType(VarbinaryJdbcType.class)
+////////    @JdbcTypeCode(Types.VARBINARY)
+//    private byte[] bytes;
+    @ManyToOne
     private Department department;
     @Column(name = "content_type")
     private String contentType;
+
+    @Column(name = "bytesToString",length = 5000)
+    private String bytesToString;
+
 }

@@ -8,16 +8,17 @@ import Connection from "../connection/Connection"
 
 const Home = () => {
     const url = "http://localhost:8082/clinic/departments"
-    let typeRequest = "get"
+    const typeRequest = "get"
     const [departments,setDepartments] = useState([])
 
     useEffect( ()=>{
-        Connection.requestSymple(url,typeRequest)
+            Connection.requestSymple(url,typeRequest)
             .then((result) => {
                 setDepartments(result.data)
             }).catch((err) => {
                 console.error("нет доступа");
             });
+
         },[]
     );
 
@@ -33,11 +34,12 @@ const Home = () => {
                     departments.map(
                         (department,index) =>
                             <Col key={index} sm={12/departments.length}>
-                                <MyCard department = {department}></MyCard>
+                                <MyCard 
+                                    department = {department}  
+                                ></MyCard>
                             </Col>
                     )
                 }
-
             </Row>
         </>
         

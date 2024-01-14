@@ -15,13 +15,6 @@ import java.util.List;
 @RequestMapping("new_test")
 @RequiredArgsConstructor
 public class NewTestController {
-
-//    @GetMapping("/test")
-//    public String test(){
-//        System.out.println();
-//        return "test";
-//    }
-
     private final DepartmentRepository departmentRepository;
     @GetMapping("/test")
     public String departments(Model model){

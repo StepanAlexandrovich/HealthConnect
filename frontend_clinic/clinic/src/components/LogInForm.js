@@ -41,6 +41,7 @@ const LogInForm = (props) => {
         props.handleSetIsVisibilityFrame(false)
 
         console.log("you have entered how admin")
+        console.log(res.data.token)
       }else{
         localStorage.setItem("token","")
         console.log("вы пытаетесь войти как обычный пользователь, это вход для администратора")

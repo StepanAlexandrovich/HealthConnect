@@ -1,19 +1,15 @@
 package com.core.controllers;
 
-import com.core.config.MyJwtFilter;
 import com.core.dto.DepartmentDto;
 import com.core.dto.JwtCreateDto;
 import com.core.dto.JwtResponseDto;
-import com.core.dto.UserDto;
 import com.core.models.Department;
+import com.core.models.DepartmentImage;
 import com.core.models.TypeAppointment;
-import com.core.models.User;
-import com.core.repositories.DepartmentRepository;
-import com.core.repositories.TypeAppointmentRepository;
 import com.core.services.CustomUserDetailsService;
 import com.core.services.TypeAppointmentService;
-import com.core.services.UserService;
 import com.core.services.impl.DepartmentServiceImpl;
+import com.core.services.impl.ImageServiceImpl;
 import com.core.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,9 +19,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3006/")
@@ -40,6 +35,7 @@ public class AdminController {
     //---------------------
     private final DepartmentServiceImpl departmentService;
     private final TypeAppointmentService typeAppointmentService;
+    private final ImageServiceImpl imageService;
 
     @PostMapping("/auth_admin")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
@@ -54,24 +50,30 @@ public class AdminController {
     }
 
     @PostMapping("/create_department")
-    public Department createDepartment(@RequestBody DepartmentDto departmentDto,Principal principal){
+    public DepartmentDto createDepartment(DepartmentDto departmentDto, MultipartFile file){
         Department department = new Department();
         department.setTitle(departmentDto.getTitle());
+        department = departmentService.createDepartment(department);
+
+        DepartmentImage departmentImage = imageService.convertMultipartToImage(file);
+        departmentImage.setDepartment(department);
+        imageService.createImage(departmentImage);
 
         TypeAppointment typeAppointment = new TypeAppointment();
         typeAppointment.setDescription(departmentDto.getDescription());
-        typeAppointment.setDepartment(departmentService.createDepartment(department));
-
+        typeAppointment.setDepartment(department);
         typeAppointmentService.createTypeAppointment(typeAppointment);
-        return typeAppointment.getDepartment();
+
+        return departmentService.getById(department.getId());
     }
-//    @GetMapping("/departments")
-//    public List<DepartmentDto> departments(){
-//        System.out.println(departmentService.getAll());
-//        System.out.println();
-//
-//        return departmentService.getAll();
-//    }
+
+    @GetMapping("/departments")
+    public List<DepartmentDto> departments(){
+        System.out.println(departmentService.getAll());
+        System.out.println();
+
+        return departmentService.getAll();
+    }
 
 
 

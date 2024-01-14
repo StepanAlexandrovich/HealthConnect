@@ -1,6 +1,5 @@
 package com.core.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +25,7 @@ public class Department {
     @Column(name = "description")
     private String description;
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Image> images = new ArrayList<>();
+    private List<DepartmentImage> departmentImages = new ArrayList<>();
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<TypeAppointment> typeAppointments = new ArrayList<>();
 }

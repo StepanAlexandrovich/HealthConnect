@@ -29,6 +29,23 @@ class Connection{
         return axios(config)
     }
 
+    requestImage(url,jsonObject,requestType){
+        var data = JSON.stringify(jsonObject,requestType);
+        var token = localStorage.getItem("token");
+
+        var config = {
+            method: requestType,
+            url: url,
+            headers: { 
+                'Authorization': 'Bearer '+ token, 
+                'content-type': 'multipart/form-data'
+            },
+            data : data
+        };
+
+        return axios(config)
+    }
+
 }
 
 export default new Connection();
