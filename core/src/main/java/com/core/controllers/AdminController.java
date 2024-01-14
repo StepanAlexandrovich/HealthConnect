@@ -35,7 +35,7 @@ public class AdminController {
     //---------------------
     private final DepartmentServiceImpl departmentService;
     private final TypeAppointmentService typeAppointmentService;
-    private final ImageServiceImpl imageService;
+    private final ImageServiceImpl<DepartmentImage> imageService;
 
     @PostMapping("/auth_admin")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
@@ -55,7 +55,7 @@ public class AdminController {
         department.setTitle(departmentDto.getTitle());
         department = departmentService.createDepartment(department);
 
-        DepartmentImage departmentImage = imageService.convertMultipartToImage(file);
+        DepartmentImage departmentImage = imageService.convertMultipartToImage(new DepartmentImage(),file);
         departmentImage.setDepartment(department);
         imageService.createImage(departmentImage);
 

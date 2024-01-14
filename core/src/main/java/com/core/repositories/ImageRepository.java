@@ -1,7 +1,7 @@
 package com.core.repositories;
 
-import com.core.models.DepartmentImage;
+import com.core.models.RootImage;
 import org.springframework.data.jpa.repository.JpaRepository;
-// переименов класс имадж
-public interface ImageRepository extends JpaRepository<DepartmentImage,Long> {
+
+public interface ImageRepository<T extends RootImage> extends JpaRepository<T,Long> {
 }

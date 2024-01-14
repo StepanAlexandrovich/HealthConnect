@@ -1,7 +1,6 @@
 package com.core.controllers;
 
-import com.core.models.DepartmentImage;
-import com.core.repositories.ImageRepository;
+import com.core.models.RootImage;
 import com.core.services.impl.ImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -16,17 +15,17 @@ import java.io.ByteArrayInputStream;
 @RequiredArgsConstructor
 @RequestMapping("/images")
 public class ImageController {
-    private final ImageRepository imageRepository;
-    private final ImageServiceImpl imageService;
+    private final ImageServiceImpl<RootImage> imageService;
 
     @GetMapping("/image/{imageId}")
     public ResponseEntity<?> getImage(@PathVariable Long imageId){
-        DepartmentImage departmentImage = imageRepository.findById(imageId).orElse(null);
+        RootImage image = imageService.getById(imageId);
+
         return ResponseEntity.ok()
-                .header("fileName", departmentImage.getOriginalFileName())
-                .contentType(MediaType.valueOf(departmentImage.getContentType()))
-                .contentLength(departmentImage.getSize())
-                .body(new InputStreamResource(new ByteArrayInputStream( imageService.method(departmentImage.getBytesToString()) )));
+                .header("fileName", image.getOriginalFileName())
+                .contentType(MediaType.valueOf(image.getContentType()))
+                .contentLength(image.getSize())
+                .body(new InputStreamResource(new ByteArrayInputStream( imageService.decodeString(image.getBytesToString()) )));
     }
 
 }

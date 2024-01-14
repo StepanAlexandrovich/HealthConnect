@@ -1,11 +1,11 @@
 package com.core.services;
 
-import com.core.models.DepartmentImage;
+import com.core.models.RootImage;
 
 import java.util.List;
 
-public interface ImageService {
-    List<DepartmentImage> getAll();
-
-    DepartmentImage createImage(DepartmentImage departmentImage);
+public interface ImageService<T extends RootImage> {
+    List<T> getAll();
+    T getById(Long imageId);
+    T createImage(T image);
 }
