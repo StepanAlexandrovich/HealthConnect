@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = {"http://localhost:3000/","http://localhost:3006/"})
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -25,9 +25,8 @@ public class AuthController {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtils jwtTokenUtils;
     @GetMapping("/users")
-    public List<User> getUsers(){
-        System.out.println();
-        return userService.getAll();
+    public List<UserDto> getUsers(){
+        return userService.getAllDto();
     }
     @PostMapping("/auth")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
@@ -41,12 +40,9 @@ public class AuthController {
         String token = jwtTokenUtils.generationToken(userDetails);
         return ResponseEntity.ok(new JwtResponseDto(token));
     }
-
     @PostMapping("/registration")
-    public String registration(@RequestBody UserDto userDto){
-        userService.createUser(userDto);
-        System.out.println();
-        return "yes";
+    public UserDto registration(@RequestBody UserDto userDto){
+        return userService.createUser(userDto);
     }
 
 }

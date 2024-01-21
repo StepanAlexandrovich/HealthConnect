@@ -1,0 +1,56 @@
+package com.core.services.impl;
+
+import com.core.converters.DepartmentToDepartmentDto;
+import com.core.dto.DepartmentDto;
+import com.core.dto.TypeAppointmentDto;
+import com.core.models.Department;
+import com.core.repositories.DepartmentRepository;
+import com.core.services.DepartmentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+@Service
+@RequiredArgsConstructor
+public class DepartmentServiceImpl implements DepartmentService {
+    private final DepartmentRepository departmentRepository;
+    private final DepartmentToDepartmentDto departmentToDepartmentDto;
+
+    @Override
+    public List<DepartmentDto> getAll() {
+        return departmentRepository.findAll().stream().map(departmentToDepartmentDto::convert).toList();
+    }
+
+    @Override
+    public DepartmentDto getById(Long id) {
+        DepartmentDto departmentDto = departmentToDepartmentDto.convert(departmentRepository.findById(id).orElse(null));
+
+        List<TypeAppointmentDto> list = new ArrayList<>();
+
+        for (TypeAppointmentDto typeAppointmentDto : departmentDto.getTypeAppointmentsList()) {
+            if(typeAppointmentDto.getActive()){
+                list.add(typeAppointmentDto);
+            }
+        }
+
+        departmentDto.setTypeAppointmentsList(list);
+
+        return departmentDto;
+    }
+
+    @Override
+    public Department createDepartment(Department department) {
+        return departmentRepository.save(department);
+    }
+
+    @Override
+    public List<Department> getAllDepartment() {
+        return departmentRepository.findAll();
+    }
+
+    @Override
+    public Department getDepartmentById(Long id) {
+        return departmentRepository.findById(id).orElse(null);
+    }
+}
