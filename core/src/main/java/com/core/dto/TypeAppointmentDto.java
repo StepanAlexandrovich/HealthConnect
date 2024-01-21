@@ -12,4 +12,5 @@ public class TypeAppointmentDto {
     private String title;
     private String description;
     private Long departmentId;
+    private Boolean active;
 }

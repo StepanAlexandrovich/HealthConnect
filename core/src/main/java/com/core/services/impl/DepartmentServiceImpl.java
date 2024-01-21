@@ -2,12 +2,14 @@ package com.core.services.impl;
 
 import com.core.converters.DepartmentToDepartmentDto;
 import com.core.dto.DepartmentDto;
+import com.core.dto.TypeAppointmentDto;
 import com.core.models.Department;
 import com.core.repositories.DepartmentRepository;
 import com.core.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDto getById(Long id) {
-        return departmentToDepartmentDto.convert(departmentRepository.findById(id).orElse(null));
+        DepartmentDto departmentDto = departmentToDepartmentDto.convert(departmentRepository.findById(id).orElse(null));
+
+        List<TypeAppointmentDto> list = new ArrayList<>();
+
+        for (TypeAppointmentDto typeAppointmentDto : departmentDto.getTypeAppointmentsList()) {
+            if(typeAppointmentDto.getActive()){
+                list.add(typeAppointmentDto);
+            }
+        }
+
+        departmentDto.setTypeAppointmentsList(list);
+
+        return departmentDto;
     }
 
     @Override

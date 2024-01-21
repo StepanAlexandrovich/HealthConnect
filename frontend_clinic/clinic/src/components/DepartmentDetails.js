@@ -10,15 +10,28 @@ const DepartmentDetails = (props) => {
     let typeRequest = "get"
 
     const [typeAppointments,setTypeAppointments] = useState([])
-
-    const toJson = (o)=>{
-      return JSON.stringify(o)
-    }
     
+    // function del(id){
+    //   console.log(id)
+    // }
+
+    const del = (currentId)=>{
+      let url = "http://localhost:8082/api/v1/admin/delete_appointment/"+currentId
+      let typeRequest = "get"
+
+      Connection.request(
+        url,
+        {},
+        typeRequest
+      ).then(function (response) {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
 
     useEffect( ()=>{
-      
-
         Connection.requestSymple(
             url,
             typeRequest
@@ -46,7 +59,9 @@ const DepartmentDetails = (props) => {
                 <th> {typeAppointment.title} </th>
                 <th> {typeAppointment.description} </th>
                 <th> 
-                  <Button href={ `/change_appointment/${toJson(typeAppointment)}`} variant="primary" > change description </Button>  
+                  <Button href={ `/change_appointment/${JSON.stringify(typeAppointment)}`} variant="primary" > change description </Button> 
+                  <br/>
+                  <Button onClick={()=>del(typeAppointment.id)} variant="primary" > delete </Button> 
                 </th>
                 </tr>
             )

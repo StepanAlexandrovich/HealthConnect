@@ -63,33 +63,20 @@ public class AdminController {
 
         return departmentService.getById(department.getId());
     }
-
     @PostMapping("/add_appointment")
-    public String addTypeAppointment(@RequestBody TypeAppointmentDto typeAppointmentDto){
-        typeAppointmentService.createTypeAppointment(typeAppointmentDto);
+    public TypeAppointmentDto addTypeAppointment(@RequestBody TypeAppointmentDto typeAppointmentDto){
+        return typeAppointmentService.createTypeAppointment(typeAppointmentDto);
+    }
 
-        // return dooooo
-        return "yes";
+    @GetMapping("/delete_appointment/{appointmentId}")
+    public TypeAppointmentDto deleteTypeAppointment(@PathVariable Long appointmentId){
+
+        return typeAppointmentService.deleteTypeAppointment(appointmentId);
     }
 
     @GetMapping("/departments")
     public List<DepartmentDto> departments(){
-        System.out.println(departmentService.getAll());
-        System.out.println();
-
         return departmentService.getAll();
     }
-
-
-
-
-    @GetMapping("/is_admin")
-    public String isAdmin(Principal principal){
-        String role = ((UsernamePasswordAuthenticationToken) principal).getAuthorities().toArray()[0].toString();
-        System.out.println(role);
-        //System.out.println(jwtTokenUtils.getUserRole("---------------------"+token));//-----------------------------test
-        return "You Admin";
-    }
-
 
 }

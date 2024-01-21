@@ -21,7 +21,7 @@ public class TypeAppointment {
     private String title;
     @Column(name = "description")
     private String description;
-//    @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     @ManyToOne
     private Department department;
+    private boolean active;
 }

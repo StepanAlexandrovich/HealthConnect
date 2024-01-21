@@ -19,8 +19,11 @@ public class TypeAppointmentImpl implements TypeAppointmentService {
     private final UniversalConverter universalConverter;
 
     @Override
-    public List<TypeAppointment> getAll() {
-        return typeAppointmentRepository.findAll();
+    public List<TypeAppointmentDto> getAll() {
+        List<TypeAppointmentDto> listDto = typeAppointmentRepository.findAll().stream().map(
+                typeAppointment -> universalConverter.convert(typeAppointment, TypeAppointmentDto.class)
+        ).toList();
+        return listDto;
     }
 
     @Override
@@ -28,9 +31,18 @@ public class TypeAppointmentImpl implements TypeAppointmentService {
         TypeAppointment typeAppointment = universalConverter.convert(typeAppointmentDto, TypeAppointment.class);
 
         typeAppointment.setDepartment(departmentRepository.findById(typeAppointmentDto.getDepartmentId()).orElse(null));
+        typeAppointment.setActive(true);
         typeAppointmentRepository.save(typeAppointment);
 
         return typeAppointmentDto;
+    }
+
+    @Override
+    public TypeAppointmentDto deleteTypeAppointment(Long typeAppointmentId) {
+        TypeAppointment typeAppointment = typeAppointmentRepository.findById(typeAppointmentId).orElse(null);
+        typeAppointment.setActive(false);
+        typeAppointmentRepository.save(typeAppointment);
+        return universalConverter.convert(typeAppointment, TypeAppointmentDto.class);
     }
 
     @Override
