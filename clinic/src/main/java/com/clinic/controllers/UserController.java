@@ -11,10 +11,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl userService;
+    //private final UserServiceImpl userService;
 
-    @GetMapping("/users")
-    public List<User> getUsers(){
-        return userService.getAll();
-    }
+//    @GetMapping("/users")
+//    public List<User> getUsers(){
+//        return userService.getAll();
+//    }
 }
