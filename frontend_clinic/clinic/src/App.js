@@ -12,6 +12,9 @@ import { AuthContext } from './context/AuthContext';
 import MyFooter from './components/MyFooter';
 import DownloadImageForm from './components/DownloadImageForm';
 import DepartmentDetails from './components/DepartmentDetails';
+import AddAppointment from './components/AddAppointment';
+import ChangeAppointment from './components/ChangeAppointment';
+
 
 
 function App() {
@@ -29,15 +32,15 @@ function App() {
               <Route path='/contacts' element={<Contacts/>}/>
               <Route path='/download' element={<DownloadImageForm/>}/>
               <Route path='/department/:id' element={<DepartmentDetails/>}/>
+              <Route path='/add_appointment/:departmentId' element={<AddAppointment/>}/>
+              <Route path='/change_appointment/:jsonAppointment' element={<ChangeAppointment/>}/>
             </Routes>
           <MyFooter/>
           </BrowserRouter>
       </AuthContext.Provider>
 
-      {/* <button onClick={()=> console.log(token)}>button1</button>
+      {/* <button onClick={fun}>button1</button>
       <button onClick={()=> localStorage.setItem("token","")}>button2</button> */}
-
-
 
     </>
   );

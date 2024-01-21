@@ -15,6 +15,8 @@ const Home = () => {
             Connection.requestSymple(url,typeRequest)
             .then((result) => {
                 setDepartments(result.data)
+
+                console.log(result.data)
             }).catch((err) => {
                 console.error("нет доступа");
             });

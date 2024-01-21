@@ -1,11 +1,9 @@
 package com.core.converters;
 
 import com.core.dto.UserDto;
-import com.core.models.Client;
 import com.core.models.User;
 import com.core.models.UserRole;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component

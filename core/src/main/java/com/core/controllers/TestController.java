@@ -36,7 +36,7 @@ public class TestController {
             typeAppointment.setDescription(title_appointment + "_description");
             typeAppointment.setDepartment(departmentService.createDepartment(department));
 
-            typeAppointmentService.createTypeAppointment(typeAppointment);
+            //typeAppointmentService.createTypeAppointment(typeAppointment);
         }
     }
     @GetMapping("/init1")

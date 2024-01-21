@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { json, useParams } from 'react-router-dom';
 import Connection from "../connection/Connection"
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 const DepartmentDetails = (props) => {
     let {id} = useParams();
@@ -10,12 +11,18 @@ const DepartmentDetails = (props) => {
 
     const [typeAppointments,setTypeAppointments] = useState([])
 
+    const toJson = (o)=>{
+      return JSON.stringify(o)
+    }
+    
+
     useEffect( ()=>{
+      
+
         Connection.requestSymple(
             url,
             typeRequest
           ).then(function (response) {
-            // console.log(JSON.stringify(response.data));
             setTypeAppointments(response.data.typeAppointmentsList)
           })
           .catch(function (error) {
@@ -38,6 +45,9 @@ const DepartmentDetails = (props) => {
                 <tr key={index}>
                 <th> {typeAppointment.title} </th>
                 <th> {typeAppointment.description} </th>
+                <th> 
+                  <Button href={ `/change_appointment/${toJson(typeAppointment)}`} variant="primary" > change description </Button>  
+                </th>
                 </tr>
             )
           }

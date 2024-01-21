@@ -7,12 +7,15 @@ import { useState } from 'react';
 import LogInForm from './LogInForm';
 import img from '../images/rubik.jpg'
 import { AuthContext } from '../context/AuthContext';
+
 import { Connection } from '../connection/Connection';
 
 import { jwtDecode } from "jwt-decode";
 import CreateDepartmentForm from './CreateDepartmentForm';
 
 function MyNavBar(props) { 
+
+
   const [isVisibilityFrame,setIsVisibilityFrame] = useState(false)
   // const[token,setToken] = useState(useContext(AuthContext))
   const[token,setToken] = useState(localStorage.getItem("token"))
@@ -23,20 +26,14 @@ function MyNavBar(props) {
     localStorage.setItem("token",newToken)
     setToken(newToken)
     
-    console.log(localStorage.getItem("token"))
-    // console.log(new Connection().getUsers(localStorage.getItem("token")))
-
-
-    //const decoded = jwtDecode(token);
-    // console.log("sub " + decoded.sub);
-    // console.log(decoded.roles[0])
-
-    // setUsername(decoded.sub);
+    console.log(localStorage.getItem("token"))    
   }
 
   
   
-  // useEffect( ()=>{ console.log('MyNavBar -> useEffect') },[token] )
+  // useEffect( ()=>{ 
+  //   },[] 
+  // )
 
   //-----------------------------
 

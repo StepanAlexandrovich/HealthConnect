@@ -1,8 +1,10 @@
 package com.core.controllers;
 
+import com.core.converters.UniversalConverter;
 import com.core.dto.DepartmentDto;
 import com.core.dto.JwtCreateDto;
 import com.core.dto.JwtResponseDto;
+import com.core.dto.TypeAppointmentDto;
 import com.core.models.Department;
 import com.core.models.DepartmentImage;
 import com.core.models.TypeAppointment;
@@ -37,6 +39,8 @@ public class AdminController {
     private final TypeAppointmentService typeAppointmentService;
     private final ImageServiceImpl<DepartmentImage> imageService;
 
+    private final UniversalConverter universalConverter;
+
     @PostMapping("/auth_admin")
     public ResponseEntity<?> authentication(@RequestBody JwtCreateDto jwtCreateDto){
         try {
@@ -50,21 +54,22 @@ public class AdminController {
     }
 
     @PostMapping("/create_department")
-    public DepartmentDto createDepartment(DepartmentDto departmentDto, MultipartFile file){
-        Department department = new Department();
-        department.setTitle(departmentDto.getTitle());
+    public DepartmentDto createDepartment(Department department, MultipartFile file){
         department = departmentService.createDepartment(department);
 
         DepartmentImage departmentImage = imageService.convertMultipartToImage(new DepartmentImage(),file);
         departmentImage.setDepartment(department);
         imageService.createImage(departmentImage);
 
-        TypeAppointment typeAppointment = new TypeAppointment();
-        typeAppointment.setDescription(departmentDto.getDescription());
-        typeAppointment.setDepartment(department);
-        typeAppointmentService.createTypeAppointment(typeAppointment);
-
         return departmentService.getById(department.getId());
+    }
+
+    @PostMapping("/add_appointment")
+    public String addTypeAppointment(@RequestBody TypeAppointmentDto typeAppointmentDto){
+        typeAppointmentService.createTypeAppointment(typeAppointmentDto);
+
+        // return dooooo
+        return "yes";
     }
 
     @GetMapping("/departments")

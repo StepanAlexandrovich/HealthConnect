@@ -35,20 +35,37 @@ const LogInForm = (props) => {
     })
     .then(res=>{ 
       const roles = jwtDecode(res.data.token).roles;
-      if(roles.includes("ROLE_ADMIN")){
-        props.handleSetToken(res.data.token)
-        //localStorage.setItem("token",res.data.token)
-        props.handleSetIsVisibilityFrame(false)
+      console.log(jwtDecode(res.data.token))
 
-        console.log("you have entered how admin")
-        console.log(res.data.token)
-      }else{
-        localStorage.setItem("token","")
-        console.log("вы пытаетесь войти как обычный пользователь, это вход для администратора")
-      }
+
+
+      // if(roles.includes("ROLE_ADMIN")){
+      //   props.handleSetToken(res.data.token)
+      //   //localStorage.setItem("token",res.data.token)
+      //   props.handleSetIsVisibilityFrame(false)
+
+      //   console.log("you have entered how admin")
+      //   console.log(res.data.token)
+
+      //   localStorage.setItem("role",)
+      // }else{
+      //   localStorage.setItem("token","")
+      //   console.log("вы пытаетесь войти как обычный пользователь, это вход для администратора")
+      // }
       //alligator.includes("thick scales")
 
       // localStorage.setItem("username",username)
+
+      
+      if(roles.includes("ROLE_ADMIN")){
+        localStorage.setItem("role","ROLE_ADMIN")
+      }else
+      if(roles.includes("ROLE_USER")){
+        localStorage.setItem("role","ROLE_USER")
+      }
+
+      props.handleSetToken(res.data.token)
+      props.handleSetIsVisibilityFrame(false)
     })
     .catch( err => {
       console.error('Ошибка логирования')
